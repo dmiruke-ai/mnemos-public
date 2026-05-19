@@ -1,0 +1,52 @@
+Mnemos — Proprietary License (Patent Pending)
+================================================
+
+Copyright (c) 2026 Dattaram Miruke. All rights reserved.
+
+PATENT PENDING — Technology and methodology relating to typed page-tree
+retrieval, 5-layer code semantic graph ingestion, and operational-resource
+graph extraction are patent pending.
+
+EVALUATION USE
+--------------
+You are granted a limited, non-exclusive, non-transferable, revocable
+right to interact with the hosted public demonstration of Mnemos
+(currently exposed at http://37.27.97.75:8200 and adjacent ports) for
+the sole purpose of evaluating the system. Evaluation use is at your
+own risk; no warranty of any kind is offered.
+
+NO REDISTRIBUTION, NO DERIVATIVE WORK
+-------------------------------------
+The contents of this repository (documentation, architecture diagrams,
+endpoint maps, and ancillary artefacts) are provided for evaluation and
+reference. You may not, without prior written permission from the author:
+
+  (a) copy, reproduce, fork, mirror, host, or redistribute the
+      documentation or artefacts in this repository;
+  (b) create derivative works based on the system architecture,
+      retrieval methodology, code-graph ingestion approach, or any
+      novel patterns documented herein;
+  (c) reverse-engineer, decompile, or recreate the live system
+      described in this repository;
+  (d) use the materials for commercial purposes, including embedding
+      in commercial products, providing as a hosted service, or
+      training models against the architecture descriptions.
+
+The private source repository of Mnemos itself is NOT released under
+this license and is not included in this public repository.
+
+NO WARRANTY
+-----------
+THE MATERIALS AND HOSTED DEMO ARE PROVIDED "AS IS", WITHOUT WARRANTY
+OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+MATERIALS OR THE USE OR OTHER DEALINGS THEREIN.
+
+CONTACT
+-------
+For commercial licensing, derivative work, embedded use, or research
+collaboration: contact via the GitHub profile linked in this
+repository.
