@@ -6,8 +6,8 @@ instrumented, why, what the overhead is, and how to read the dashboards.
 
 ## Live
 
-- **Prometheus:** [http://37.27.97.75:9091/](http://37.27.97.75:9091/)
-- **Grafana:** [http://37.27.97.75:10210/d/mnemos-overview/](http://37.27.97.75:10210/d/mnemos-overview/)
+- **Prometheus:** [http://mnemos.dmiruke.dev:9091/](http://mnemos.dmiruke.dev:9091/)
+- **Grafana:** [http://mnemos.dmiruke.dev:10210/d/mnemos-overview/](http://mnemos.dmiruke.dev:10210/d/mnemos-overview/)
 - **Credentials:** `admin / mnemos` (admin); anonymous viewer role enabled (no login needed for read-only).
 
 The Grafana dashboard "Mnemos — Overview" has 13 panels covering API

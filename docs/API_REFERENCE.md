@@ -1,9 +1,9 @@
 # API Reference
 
 The live API exposes 64 endpoints. The full OpenAPI 3 spec is at
-[`http://37.27.97.75:8200/openapi.json`](http://37.27.97.75:8200/openapi.json);
+[`http://mnemos.dmiruke.dev:8200/openapi.json`](http://mnemos.dmiruke.dev:8200/openapi.json);
 the interactive Swagger UI is at
-[`http://37.27.97.75:8200/docs`](http://37.27.97.75:8200/docs).
+[`http://mnemos.dmiruke.dev:8200/docs`](http://mnemos.dmiruke.dev:8200/docs).
 
 This doc curates the **interesting subset** — everything you'd actually
 want to call from a script or an agent. All `/api/...` routes accept an
@@ -12,7 +12,7 @@ want to call from a script or an agent. All `/api/...` routes accept an
 
 ## Conventions
 
-- **Base URL:** `http://37.27.97.75:8200`
+- **Base URL:** `http://mnemos.dmiruke.dev:8200`
 - **Tenant scoping:** every memory + node is tenant-scoped. Pass
   `X-Tenant-ID: <your-tenant>` on every call.
 - **202 contract:** ingest paths that take >1s return `HTTP 202 Accepted`
@@ -30,7 +30,7 @@ want to call from a script or an agent. All `/api/...` routes accept an
 
 ```bash
 # Create
-curl -X POST http://37.27.97.75:8200/api/memories \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/memories \
   -H 'X-Tenant-ID: demo' -H 'Content-Type: application/json' \
   -d '{
     "content": "Mnemos uses pgvector for similarity search.",
@@ -42,24 +42,24 @@ curl -X POST http://37.27.97.75:8200/api/memories \
 # → {"id":"...","content":"...","node_type":"semantic","metadata":{...},...}
 
 # Browse
-curl "http://37.27.97.75:8200/api/memories?limit=10&offset=0" -H 'X-Tenant-ID: demo'
+curl "http://mnemos.dmiruke.dev:8200/api/memories?limit=10&offset=0" -H 'X-Tenant-ID: demo'
 
 # Single
-curl "http://37.27.97.75:8200/api/memories/<id>" -H 'X-Tenant-ID: demo'
+curl "http://mnemos.dmiruke.dev:8200/api/memories/<id>" -H 'X-Tenant-ID: demo'
 
 # Update
-curl -X PUT "http://37.27.97.75:8200/api/memories/<id>" \
+curl -X PUT "http://mnemos.dmiruke.dev:8200/api/memories/<id>" \
   -H 'X-Tenant-ID: demo' -H 'Content-Type: application/json' \
   -d '{"content": "...updated...", "metadata": {"reviewed": true}}'
 
 # Delete
-curl -X DELETE "http://37.27.97.75:8200/api/memories/<id>" -H 'X-Tenant-ID: demo'
+curl -X DELETE "http://mnemos.dmiruke.dev:8200/api/memories/<id>" -H 'X-Tenant-ID: demo'
 ```
 
 ### Recent
 
 ```bash
-curl "http://37.27.97.75:8200/memory/recent?limit=20" -H 'Authorization: Bearer mnm-...'
+curl "http://mnemos.dmiruke.dev:8200/memory/recent?limit=20" -H 'Authorization: Bearer mnm-...'
 ```
 
 ---
@@ -69,7 +69,7 @@ curl "http://37.27.97.75:8200/memory/recent?limit=20" -H 'Authorization: Bearer 
 ### Hybrid (vector + keyword + recency)
 
 ```bash
-curl "http://37.27.97.75:8200/api/search?query=rate+limiter&limit=10" \
+curl "http://mnemos.dmiruke.dev:8200/api/search?query=rate+limiter&limit=10" \
   -H 'X-Tenant-ID: demo'
 ```
 
@@ -81,7 +81,7 @@ result; for breadcrumbs, use the MCP `semantic_search` tool or the
 ### Vector-only / hybrid with custom weights
 
 ```bash
-curl -X POST http://37.27.97.75:8200/memory/search \
+curl -X POST http://mnemos.dmiruke.dev:8200/memory/search \
   -H 'Authorization: Bearer mnm-...' -H 'Content-Type: application/json' \
   -d '{
     "query": "JWT validation",
@@ -97,7 +97,7 @@ curl -X POST http://37.27.97.75:8200/memory/search \
 ### Context bundle (memories + entities + relationships in one shot)
 
 ```bash
-curl -X POST http://37.27.97.75:8200/memory/context \
+curl -X POST http://mnemos.dmiruke.dev:8200/memory/context \
   -H 'Authorization: Bearer mnm-...' -H 'Content-Type: application/json' \
   -d '{
     "query": "how do we authenticate API requests?",
@@ -114,7 +114,7 @@ curl -X POST http://37.27.97.75:8200/memory/context \
 ### List codebases
 
 ```bash
-curl http://37.27.97.75:8200/api/codebases
+curl http://mnemos.dmiruke.dev:8200/api/codebases
 # → {
 #     "codebases": [
 #       {"id": "...", "name": "mnemos", "repo_url": "...", "branch": "main",
@@ -128,8 +128,8 @@ curl http://37.27.97.75:8200/api/codebases
 ### Codebase detail + graph stats
 
 ```bash
-curl "http://37.27.97.75:8200/api/codebases/<id>"
-curl "http://37.27.97.75:8200/api/codebases/<id>/graph-stats"
+curl "http://mnemos.dmiruke.dev:8200/api/codebases/<id>"
+curl "http://mnemos.dmiruke.dev:8200/api/codebases/<id>/graph-stats"
 # → {"symbols": 2526, "functions": 155, "classes": 72, "methods": 85,
 #    "relationships": 10793, "calls": 1827, "imports": 246, "infra": 2}
 ```
@@ -137,7 +137,7 @@ curl "http://37.27.97.75:8200/api/codebases/<id>/graph-stats"
 ### Filterable file list
 
 ```bash
-curl "http://37.27.97.75:8200/api/codebases/<id>/files?language=python&imports=psycopg2&limit=10"
+curl "http://mnemos.dmiruke.dev:8200/api/codebases/<id>/files?language=python&imports=psycopg2&limit=10"
 ```
 
 `imports=X` matches files whose `imports[]` jsonb array contains the exact
@@ -146,27 +146,27 @@ string `X` (jsonb `?` operator). `path=substr` does ILIKE.
 ### Symbol prefix search
 
 ```bash
-curl "http://37.27.97.75:8200/api/symbols?prefix=authorize_payment&codebase_id=<id>&kind=function&limit=10"
+curl "http://mnemos.dmiruke.dev:8200/api/symbols?prefix=authorize_payment&codebase_id=<id>&kind=function&limit=10"
 ```
 
 ### Call graph traversal
 
 ```bash
 # Who does this symbol call (outgoing edges)?
-curl "http://37.27.97.75:8200/api/symbols/<symbol_id>/calls?limit=50"
+curl "http://mnemos.dmiruke.dev:8200/api/symbols/<symbol_id>/calls?limit=50"
 
 # Who calls this symbol (incoming edges)?
-curl "http://37.27.97.75:8200/api/symbols/<symbol_id>/called-by?limit=50"
+curl "http://mnemos.dmiruke.dev:8200/api/symbols/<symbol_id>/called-by?limit=50"
 
 # Filter by relationship kind
-curl "http://37.27.97.75:8200/api/symbols/<symbol_id>/calls?kind=imports"
+curl "http://mnemos.dmiruke.dev:8200/api/symbols/<symbol_id>/calls?kind=imports"
 ```
 
 ### Infra resources
 
 ```bash
-curl "http://37.27.97.75:8200/api/codebases/<id>/infra?source_kind=kubernetes"
-curl "http://37.27.97.75:8200/api/codebases/<id>/infra?resource_kind=Deployment"
+curl "http://mnemos.dmiruke.dev:8200/api/codebases/<id>/infra?source_kind=kubernetes"
+curl "http://mnemos.dmiruke.dev:8200/api/codebases/<id>/infra?resource_kind=Deployment"
 ```
 
 ---
@@ -175,18 +175,18 @@ curl "http://37.27.97.75:8200/api/codebases/<id>/infra?resource_kind=Deployment"
 
 ```bash
 # Cluster-wide pairs above similarity threshold
-curl "http://37.27.97.75:8200/api/duplicates?threshold=0.95&limit=50"
+curl "http://mnemos.dmiruke.dev:8200/api/duplicates?threshold=0.95&limit=50"
 
 # Find duplicates of one memory
-curl "http://37.27.97.75:8200/memory/<id>/duplicates" -H 'Authorization: Bearer mnm-...'
+curl "http://mnemos.dmiruke.dev:8200/memory/<id>/duplicates" -H 'Authorization: Bearer mnm-...'
 
 # Start a dedup scan job
-curl -X POST http://37.27.97.75:8200/memory/dedup/scan \
+curl -X POST http://mnemos.dmiruke.dev:8200/memory/dedup/scan \
   -H 'Authorization: Bearer mnm-...' -H 'Content-Type: application/json' \
   -d '{"threshold": 0.92, "scope": "tenant"}'
 
 # Poll
-curl "http://37.27.97.75:8200/memory/dedup/scan/<job_id>" -H 'Authorization: Bearer mnm-...'
+curl "http://mnemos.dmiruke.dev:8200/memory/dedup/scan/<job_id>" -H 'Authorization: Bearer mnm-...'
 ```
 
 ---
@@ -195,16 +195,16 @@ curl "http://37.27.97.75:8200/memory/dedup/scan/<job_id>" -H 'Authorization: Bea
 
 ```bash
 # List entities (people / orgs / concepts) with filters
-curl "http://37.27.97.75:8200/api/graph/nodes?type=concept&limit=100"
+curl "http://mnemos.dmiruke.dev:8200/api/graph/nodes?type=concept&limit=100"
 
 # All edges
-curl "http://37.27.97.75:8200/api/graph/edges?limit=500"
+curl "http://mnemos.dmiruke.dev:8200/api/graph/edges?limit=500"
 
 # Walk a node's neighborhood
-curl "http://37.27.97.75:8200/api/graph/nodes/<node_id>/neighbors?depth=2"
+curl "http://mnemos.dmiruke.dev:8200/api/graph/nodes/<node_id>/neighbors?depth=2"
 
 # Resolve a specific entity
-curl "http://37.27.97.75:8200/graph/entity/<entity_id>"
+curl "http://mnemos.dmiruke.dev:8200/graph/entity/<entity_id>"
 ```
 
 ---
@@ -214,7 +214,7 @@ curl "http://37.27.97.75:8200/graph/entity/<entity_id>"
 ### File upload (auto-routes by MIME)
 
 ```bash
-curl -X POST http://37.27.97.75:8200/api/upload \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/upload \
   -H 'X-Tenant-ID: demo' \
   -F 'files=@./paper.pdf' \
   -F 'files=@./README.md'
@@ -224,7 +224,7 @@ curl -X POST http://37.27.97.75:8200/api/upload \
 
 ```bash
 # Images / audio / video → media endpoint (handles binary properly)
-curl -X POST http://37.27.97.75:8200/api/media/upload \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/media/upload \
   -H 'X-Tenant-ID: demo' \
   -F 'file=@./diagram.png'
 ```
@@ -233,12 +233,12 @@ curl -X POST http://37.27.97.75:8200/api/media/upload \
 
 ```bash
 # Sync (small repos)
-curl -X POST http://37.27.97.75:8200/api/ingest/code/repo \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/ingest/code/repo \
   -H 'X-Tenant-ID: demo' -H 'Content-Type: application/json' \
   -d '{"url": "https://github.com/your/repo", "branch": "main"}'
 
 # Async (returns 202 + job_id)
-curl -X POST http://37.27.97.75:8200/api/async/ingest/code/repo \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/async/ingest/code/repo \
   -H 'X-Tenant-ID: demo' -H 'Content-Type: application/json' \
   -d '{"url": "https://github.com/your/repo", "branch": "main"}'
 ```
@@ -254,7 +254,7 @@ terraform/k8s/GH-Actions/Dockerfile files in the repo).
 `obsidian`, `slack`, `twitter`.
 
 ```bash
-curl -X POST http://37.27.97.75:8200/api/async/import/notion \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/async/import/notion \
   -H 'X-Tenant-ID: demo' -H 'Content-Type: application/json' \
   -d '{"token": "secret_...", "workspace_id": "..."}'
 # → {"job_id": "...", "status": "queued"}
@@ -265,8 +265,8 @@ curl -X POST http://37.27.97.75:8200/api/async/import/notion \
 ## Job status
 
 ```bash
-curl http://37.27.97.75:8200/api/jobs?limit=20
-curl http://37.27.97.75:8200/api/jobs/<job_id>
+curl http://mnemos.dmiruke.dev:8200/api/jobs?limit=20
+curl http://mnemos.dmiruke.dev:8200/api/jobs/<job_id>
 ```
 
 ---
@@ -274,11 +274,11 @@ curl http://37.27.97.75:8200/api/jobs/<job_id>
 ## Export
 
 ```bash
-curl "http://37.27.97.75:8200/api/export/memories?format=ndjson&since=2026-01-01" \
+curl "http://mnemos.dmiruke.dev:8200/api/export/memories?format=ndjson&since=2026-01-01" \
   -H 'X-Tenant-ID: demo' > memories.ndjson
 
-curl "http://37.27.97.75:8200/api/export/index"
-curl "http://37.27.97.75:8200/api/export/stats"
+curl "http://mnemos.dmiruke.dev:8200/api/export/index"
+curl "http://mnemos.dmiruke.dev:8200/api/export/stats"
 ```
 
 ---
@@ -303,22 +303,22 @@ curl "http://37.27.97.75:8200/api/export/stats"
 
 ```bash
 # List
-curl http://37.27.97.75:8200/api/keys/ -H 'Authorization: Bearer mnm-master-...'
+curl http://mnemos.dmiruke.dev:8200/api/keys/ -H 'Authorization: Bearer mnm-master-...'
 
 # Create
-curl -X POST http://37.27.97.75:8200/api/keys/ \
+curl -X POST http://mnemos.dmiruke.dev:8200/api/keys/ \
   -H 'Authorization: Bearer mnm-master-...' -H 'Content-Type: application/json' \
   -d '{"name": "demo-agent", "scopes": ["read", "write"], "rate_limit_per_minute": 60}'
 # → {"key": "mnm-xxxx", "key_id": "...", ...}   # secret returned once
 
 # Lifecycle
-curl -X POST "http://37.27.97.75:8200/api/keys/<key_id>/rotate" -H 'Authorization: Bearer mnm-master-...'
-curl -X POST "http://37.27.97.75:8200/api/keys/<key_id>/deactivate" -H 'Authorization: Bearer mnm-master-...'
+curl -X POST "http://mnemos.dmiruke.dev:8200/api/keys/<key_id>/rotate" -H 'Authorization: Bearer mnm-master-...'
+curl -X POST "http://mnemos.dmiruke.dev:8200/api/keys/<key_id>/deactivate" -H 'Authorization: Bearer mnm-master-...'
 
 # Analytics
-curl "http://37.27.97.75:8200/api/keys/analytics/usage?days=7" -H 'Authorization: Bearer mnm-master-...'
-curl "http://37.27.97.75:8200/api/keys/analytics/endpoints?days=7&limit=20" -H 'Authorization: Bearer mnm-master-...'
-curl "http://37.27.97.75:8200/api/keys/analytics/errors?days=7" -H 'Authorization: Bearer mnm-master-...'
+curl "http://mnemos.dmiruke.dev:8200/api/keys/analytics/usage?days=7" -H 'Authorization: Bearer mnm-master-...'
+curl "http://mnemos.dmiruke.dev:8200/api/keys/analytics/endpoints?days=7&limit=20" -H 'Authorization: Bearer mnm-master-...'
+curl "http://mnemos.dmiruke.dev:8200/api/keys/analytics/errors?days=7" -H 'Authorization: Bearer mnm-master-...'
 ```
 
 ---
@@ -331,7 +331,7 @@ yet). Reference contract:
 ```python
 from mnemos_sdk import MnemosClient, MemoryType
 
-client = MnemosClient(base_url="http://37.27.97.75:8200", api_key="mnm-...")
+client = MnemosClient(base_url="http://mnemos.dmiruke.dev:8200", api_key="mnm-...")
 
 # Create
 m = client.memories.create(

@@ -1,8 +1,8 @@
 > **PATENT PENDING** — Technology and methodology patent pending. All rights reserved.
 
-[![Live API](https://img.shields.io/badge/Live%20API-Swagger%20UI-b48cff?style=for-the-badge)](http://37.27.97.75:8200/docs)
-[![Dashboard](https://img.shields.io/badge/Dashboard-Mnemos%20UI-5fc77a?style=for-the-badge)](http://37.27.97.75:3002/)
-[![Grafana](https://img.shields.io/badge/Observability-Grafana-f59e0b?style=for-the-badge)](http://37.27.97.75:10210/d/mnemos-overview/)
+[![Live API](https://img.shields.io/badge/Live%20API-Swagger%20UI-b48cff?style=for-the-badge)](http://mnemos.dmiruke.dev:8200/docs)
+[![Dashboard](https://img.shields.io/badge/Dashboard-Mnemos%20UI-5fc77a?style=for-the-badge)](http://mnemos.dmiruke.dev:3002/)
+[![Grafana](https://img.shields.io/badge/Observability-Grafana-f59e0b?style=for-the-badge)](http://mnemos.dmiruke.dev:10210/d/mnemos-overview/)
 [![MCP](https://img.shields.io/badge/MCP-27%20tools-0ea5e9?style=for-the-badge)](docs/MCP_TOOLS.md)
 
 # Mnemos
@@ -23,12 +23,12 @@ Cursor, and any MCP-aware agent), and a Next.js dashboard.
 
 | Surface | URL | Notes |
 |---|---|---|
-| **Dashboard** | [http://37.27.97.75:3002/](http://37.27.97.75:3002/) | Memories · Search · Graph · Codebases · Uploads · Imports |
-| **REST API (Swagger)** | [http://37.27.97.75:8200/docs](http://37.27.97.75:8200/docs) | 64 endpoints, interactive try-it-out |
-| **OpenAPI spec** | [http://37.27.97.75:8200/openapi.json](http://37.27.97.75:8200/openapi.json) | Machine-readable schema |
-| **Health probe** | [http://37.27.97.75:8200/health](http://37.27.97.75:8200/health) | JSON `{"status":"healthy", ...}` |
-| **Prometheus** | [http://37.27.97.75:9091/](http://37.27.97.75:9091/) | 36 custom series + Python runtime |
-| **Grafana** | [http://37.27.97.75:10210/d/mnemos-overview/](http://37.27.97.75:10210/d/mnemos-overview/) | 13-panel "Mnemos — Overview" dashboard (anonymous read; admin `admin/mnemos`) |
+| **Dashboard** | [http://mnemos.dmiruke.dev:3002/](http://mnemos.dmiruke.dev:3002/) | Memories · Search · Graph · Codebases · Uploads · Imports |
+| **REST API (Swagger)** | [http://mnemos.dmiruke.dev:8200/docs](http://mnemos.dmiruke.dev:8200/docs) | 64 endpoints, interactive try-it-out |
+| **OpenAPI spec** | [http://mnemos.dmiruke.dev:8200/openapi.json](http://mnemos.dmiruke.dev:8200/openapi.json) | Machine-readable schema |
+| **Health probe** | [http://mnemos.dmiruke.dev:8200/health](http://mnemos.dmiruke.dev:8200/health) | JSON `{"status":"healthy", ...}` |
+| **Prometheus** | [http://mnemos.dmiruke.dev:9091/](http://mnemos.dmiruke.dev:9091/) | 36 custom series + Python runtime |
+| **Grafana** | [http://mnemos.dmiruke.dev:10210/d/mnemos-overview/](http://mnemos.dmiruke.dev:10210/d/mnemos-overview/) | 13-panel "Mnemos — Overview" dashboard (anonymous read; admin `admin/mnemos`) |
 
 > Hosted on a single-node bare-metal deployment for the public demo. Production
 > deployment patterns (multi-replica API, Postgres HA, S3-backed media, multi-tenant
@@ -40,27 +40,27 @@ Cursor, and any MCP-aware agent), and a Next.js dashboard.
 
 ```bash
 # 1. Capture a memory (auto-embedded, auto-tagged)
-curl -s -X POST http://37.27.97.75:8200/api/memories \
+curl -s -X POST http://mnemos.dmiruke.dev:8200/api/memories \
   -H 'Content-Type: application/json' -H 'X-Tenant-ID: demo' \
   -d '{"content":"Mnemos uses pgvector for similarity search.",
        "tags":["mnemos","architecture"],
        "title":"vector substrate"}'
 
 # 2. Semantic search — returns breadcrumb + anchor on page-tree memories
-curl -s "http://37.27.97.75:8200/api/search?query=vector+similarity&limit=3" \
+curl -s "http://mnemos.dmiruke.dev:8200/api/search?query=vector+similarity&limit=3" \
   -H 'X-Tenant-ID: demo' | jq .
 
 # 3. Browse the executable code graph
-curl -s "http://37.27.97.75:8200/api/codebases" | jq '.codebases[].name'
-curl -s "http://37.27.97.75:8200/api/symbols?prefix=get_conn&limit=3" | jq .
-curl -s "http://37.27.97.75:8200/api/symbols/<id>/called-by" | jq .
+curl -s "http://mnemos.dmiruke.dev:8200/api/codebases" | jq '.codebases[].name'
+curl -s "http://mnemos.dmiruke.dev:8200/api/symbols?prefix=get_conn&limit=3" | jq .
+curl -s "http://mnemos.dmiruke.dev:8200/api/symbols/<id>/called-by" | jq .
 
 # 4. List operational/infrastructure resources extracted from a codebase
-curl -s "http://37.27.97.75:8200/api/codebases/<id>/infra" | jq .
+curl -s "http://mnemos.dmiruke.dev:8200/api/codebases/<id>/infra" | jq .
 
 # 5. Job queue + observability
-curl -s "http://37.27.97.75:8200/admin/embedding/queue"
-curl -s "http://37.27.97.75:8200/metrics" | head -20   # Prometheus format
+curl -s "http://mnemos.dmiruke.dev:8200/admin/embedding/queue"
+curl -s "http://mnemos.dmiruke.dev:8200/metrics" | head -20   # Prometheus format
 ```
 
 ---

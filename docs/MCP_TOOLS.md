@@ -25,8 +25,8 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`
       "args": ["-m", "mcp.server"],
       "cwd": "/path/to/mnemos",
       "env": {
-        "DATABASE_URL": "postgresql://mnemos:mnemos@37.27.97.75:5434/mnemos",
-        "OLLAMA_URL": "http://37.27.97.75:11434"
+        "DATABASE_URL": "postgresql://mnemos:mnemos@mnemos.dmiruke.dev:5434/mnemos",
+        "OLLAMA_URL": "http://mnemos.dmiruke.dev:11434"
       }
     }
   }
